@@ -19,18 +19,24 @@ import TaskCard from "@/components/TodoOne/TaskCard";
 import { Button } from "@/components/ui/button";
 import { CheckCheck, Eraser, Save, SaveAll, SaveOff } from "lucide-react";
 import { toast } from "sonner";
+import { useIsClient, useLocalStorage } from "usehooks-ts";
+import { useClientSafe } from "@/hooks";
 
-const oldData = localStorage.getItem("columns");
-const autoSave = localStorage.getItem("autoSave");
+// const oldData = localStorage.getItem("columns");
+// const autoSave = localStorage.getItem("autoSave");
 
 const ToDoOnePage = () => {
+  const body = useClientSafe(() => document.body);
+  const [oldData, setOldData, removeOldData] = useLocalStorage<IColumn[]>('columns', [])
+  const [autoSave, setAutoSave, removeAutoSave] = useLocalStorage<boolean>('autoSave', false)
   const [columns, setColumns] = React.useState<IColumn[]>(
-    oldData ? JSON.parse(oldData) : []
+    oldData ? oldData : []
   ); // состаяние наших столбцов
   const [activeColumn, setActiveColumn] = React.useState<IColumn | null>(null); // сохраняем столбец вовремя перемещения
   const [activeTask, setActiveTask] = React.useState<ITask | null>(null); // сохраняем задачу вовремя перемещения
   const [isAutoSave, setIsAutoSave] = React.useState<boolean>(
-    autoSave ? JSON.parse(autoSave) : false
+    autoSave
+    // autoSave ? autoSave : false
   );
   const [saved, setSaved] = React.useState<boolean>(true);
 
@@ -51,7 +57,8 @@ const ToDoOnePage = () => {
   React.useEffect(() => {
     // проверяем если авто-сохранение включён
     if (isAutoSave) {
-      localStorage.setItem("columns", JSON.stringify(columns));
+      setOldData(columns)
+      // localStorage.setItem("columns", JSON.stringify(columns));
       setSaved(true);
     } else {
       // если есть изменения то кнопка сохранения меняется
@@ -61,7 +68,8 @@ const ToDoOnePage = () => {
 
   // сохраняем данные в local-storage
   function save() {
-    localStorage.setItem("columns", JSON.stringify(columns));
+    setOldData(columns)
+    // localStorage.setItem("columns", JSON.stringify(columns));
     toast.success("Saved to local-storage!");
     setSaved(true);
   }
@@ -69,7 +77,8 @@ const ToDoOnePage = () => {
   // переключатель авто сохранения local-storage
   function toggleAutoSave() {
     setIsAutoSave((prev) => {
-      localStorage.setItem("autoSave", JSON.stringify(!prev));
+      setAutoSave(!prev);
+      // localStorage.setItem("autoSave", JSON.stringify(!prev));
       return !prev;
     });
   }
@@ -77,7 +86,8 @@ const ToDoOnePage = () => {
   // очистить всё
   function clearAll() {
     setColumns([]);
-    localStorage.removeItem("columns");
+    removeOldData();
+    // localStorage.removeItem("columns");
   }
 
   // создаёт "column"
@@ -236,6 +246,7 @@ const ToDoOnePage = () => {
       );
     });
   }
+  const isClient = useIsClient();
 
   return (
     <div>
@@ -281,7 +292,7 @@ const ToDoOnePage = () => {
           </SortableContext>
           <CreateColumnForm onClick={createColumn} />
         </div>
-        {createPortal(
+        {isClient && createPortal(
           <DragOverlay>
             {activeColumn && (
               <Column
