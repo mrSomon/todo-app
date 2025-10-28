@@ -1,36 +1,9 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Реализация drag-n-drop: вручную и с использованием **dnd-kit**
 
-First, run the development server:
+Реализовал функционал drag-n-drop вручную без библиотек и с библиотекой **dnd-kit**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 👉 [dnd no libs](https://mr-somon-todo-app.vercel.app/) — главная страница с вариантом, реализованным вручную.
+- 👉 [with lib dnd-kit](https://mr-somon-todo-app.vercel.app/dnd-kit) — страница с вариантом, реализованным с использованием библиотеки **dnd-kit**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Также в других проектах я разрабатывал таблицы с drag-n-drop функционалом, написанным вручную. Кроме того, был разработчиком в проекте по онлайн-обучению шахматам, где мы сначала реализовали шахматную доску вручную, а затем перешли на готовую библиотеку.
