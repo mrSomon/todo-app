@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import { Id, ITask } from "@/types/appType";
 import { Button } from "../ui/button";

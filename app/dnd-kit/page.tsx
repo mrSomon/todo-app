@@ -22,8 +22,6 @@ import { toast } from "sonner";
 import { useIsClient, useLocalStorage } from "usehooks-ts";
 import { useClientSafe } from "@/hooks";
 
-// const oldData = localStorage.getItem("columns");
-// const autoSave = localStorage.getItem("autoSave");
 
 const ToDoOnePage = () => {
   const body = useClientSafe(() => document.body);
@@ -58,7 +56,6 @@ const ToDoOnePage = () => {
     // проверяем если авто-сохранение включён
     if (isAutoSave) {
       setOldData(columns)
-      // localStorage.setItem("columns", JSON.stringify(columns));
       setSaved(true);
     } else {
       // если есть изменения то кнопка сохранения меняется
@@ -69,7 +66,6 @@ const ToDoOnePage = () => {
   // сохраняем данные в local-storage
   function save() {
     setOldData(columns)
-    // localStorage.setItem("columns", JSON.stringify(columns));
     toast.success("Saved to local-storage!");
     setSaved(true);
   }
@@ -78,7 +74,6 @@ const ToDoOnePage = () => {
   function toggleAutoSave() {
     setIsAutoSave((prev) => {
       setAutoSave(!prev);
-      // localStorage.setItem("autoSave", JSON.stringify(!prev));
       return !prev;
     });
   }
@@ -87,7 +82,6 @@ const ToDoOnePage = () => {
   function clearAll() {
     setColumns([]);
     removeOldData();
-    // localStorage.removeItem("columns");
   }
 
   // создаёт "column"

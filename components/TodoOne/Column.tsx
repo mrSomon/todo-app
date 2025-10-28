@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { IColumn, Id } from "@/types/appType";
 import { Input } from "../ui/input";
